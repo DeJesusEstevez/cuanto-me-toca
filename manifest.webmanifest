@@ -1,0 +1,34 @@
+{
+  "name": "¿Cuánto Me Toca? — Prestaciones laborales RD",
+  "short_name": "Cuánto Me Toca",
+  "description": "Calcula tus prestaciones laborales de República Dominicana: preaviso, cesantía, vacaciones y regalía. Gratis y privado.",
+  "lang": "es-DO",
+  "dir": "ltr",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#10233A",
+  "background_color": "#F4F6F5",
+  "categories": ["finance", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

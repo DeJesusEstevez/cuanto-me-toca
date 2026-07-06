@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="¿Cuánto Me Toca? — recibo con peso dominicano">
+  <!-- Fondo a sangre completa (navy de confianza) para máscara adaptable -->
+  <rect width="512" height="512" fill="#10233A"/>
+  <!-- Halo verde sutil -->
+  <circle cx="256" cy="238" r="190" fill="#148F5B" opacity="0.12"/>
+
+  <!-- Recibo (dentro de la zona segura ~80%) -->
+  <g>
+    <!-- Cuerpo del recibo con borde inferior dentado -->
+    <path fill="#ffffff" d="
+      M154 132
+      h204
+      a10 10 0 0 1 10 10
+      v218
+      l-17 -12 -17 12 -17 -12 -17 12 -17 -12 -17 12 -17 -12 -17 12 -17 -12 -17 12 -17 -12 -17 12
+      v-218
+      a10 10 0 0 1 10 -10 z"/>
+    <!-- Líneas punteadas del recibo -->
+    <g stroke="#DCE4E1" stroke-width="9" stroke-linecap="round" stroke-dasharray="2 22">
+      <line x1="180" y1="188" x2="332" y2="188"/>
+      <line x1="180" y1="322" x2="332" y2="322"/>
+    </g>
+    <!-- Signo de peso dominicano en verde dinero -->
+    <text x="256" y="286" text-anchor="middle"
+          font-family="'Sora','Segoe UI',system-ui,sans-serif" font-weight="800"
+          font-size="150" fill="#148F5B">$</text>
+  </g>
+</svg>

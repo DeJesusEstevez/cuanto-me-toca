@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="es-DO">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¿Cuánto Me Toca? — Calculadora de prestaciones laborales de República Dominicana</title>
+  <meta name="description" content="Calcula gratis y al instante cuánto te corresponde al terminar tu empleo en RD: preaviso, cesantía, vacaciones y regalía. Basado en el Código de Trabajo (Ley 16-92). Todo en tu navegador, sin registro." />
+
+  <!-- Íconos y color de marca -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#10233A" />
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:title" content="¿Cuánto Me Toca? — Calculadora de prestaciones laborales RD" />
+  <meta property="og:description" content="Descubre en un minuto cuánto te corresponde al salir de tu trabajo: preaviso, cesantía, vacaciones y regalía. Gratis y privado." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_DO" />
+  <meta property="og:url" content="https://prestacionesrd.netlify.app/" />
+  <meta property="og:site_name" content="¿Cuánto Me Toca?" />
+  <meta property="og:image" content="https://prestacionesrd.netlify.app/og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://prestacionesrd.netlify.app/og.png" />
+
+  <!-- Fuentes: Sora (display), Instrument Sans (cuerpo), Space Mono (cifras) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Sora:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============ Encabezado / marca ============ -->
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="#inicio" aria-label="¿Cuánto Me Toca? — inicio">
+        <span class="brand__mark" aria-hidden="true">RD$</span>
+        <span class="brand__name">¿Cuánto&nbsp;Me&nbsp;Toca?</span>
+      </a>
+      <a href="#calculadora" class="btn btn--primary btn--sm" data-scroll>Calcular ahora</a>
+    </div>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" id="inicio">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">Código de Trabajo · Ley 16-92</p>
+        <h1 class="hero__title">
+          Al salir de tu trabajo,
+          <span class="hl">¿cuánto te toca</span>?
+        </h1>
+        <p class="hero__sub">
+          Calcula en un minuto tus <strong>prestaciones laborales</strong>: preaviso,
+          cesantía, vacaciones y regalía. Gratis, claro como un recibo de nómina y
+          <strong>sin dar tus datos a nadie</strong>.
+        </p>
+        <div class="hero__cta">
+          <a href="#calculadora" class="btn btn--primary" data-scroll>Calcular lo que me toca</a>
+          <a href="#como" class="btn btn--ghost" data-scroll>¿Cómo se calcula?</a>
+        </div>
+        <p class="hero__micro">Sin registro · Resultado al instante · Funciona sin internet</p>
+      </div>
+
+      <!-- Vista previa del recibo como ancla visual -->
+      <aside class="hero__card" aria-hidden="true">
+        <div class="receipt receipt--preview">
+          <div class="receipt__head">
+            <span class="receipt__title">Liquidación estimada</span>
+            <span class="receipt__seal">RD</span>
+          </div>
+          <ul class="receipt__lines">
+            <li><span>Preaviso · 28 días</span><b>32,900</b></li>
+            <li><span>Cesantía · 63 días</span><b>74,025</b></li>
+            <li><span>Vacaciones · 14 días</span><b>16,450</b></li>
+            <li><span>Regalía proporcional</span><b>17,500</b></li>
+          </ul>
+          <div class="receipt__total">
+            <span>Total estimado</span>
+            <b>RD$&nbsp;140,875</b>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+  <!-- ============ El problema ============ -->
+  <section class="problem" aria-labelledby="problem-title">
+    <div class="wrap">
+      <h2 id="problem-title" class="section__title">Cuando termina un empleo, la duda es la misma</h2>
+      <p class="section__lead">
+        Te despidieron o renunciaste, y nadie te explica con números qué te corresponde.
+        A veces te ofrecen menos de lo que la ley manda. Aquí ves el estimado tú mismo,
+        antes de firmar nada.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <span class="card__icon" aria-hidden="true">📄</span>
+          <h3>No sabes qué reclamar</h3>
+          <p>Preaviso, cesantía, vacaciones, regalía… cada concepto tiene su propia regla según el Código de Trabajo.</p>
+        </article>
+        <article class="card">
+          <span class="card__icon" aria-hidden="true">⚖️</span>
+          <h3>Depende del motivo</h3>
+          <p>No es lo mismo un desahucio que una renuncia. El motivo de salida cambia qué te toca y qué no.</p>
+        </article>
+        <article class="card">
+          <span class="card__icon" aria-hidden="true">🔒</span>
+          <h3>Tus datos son tuyos</h3>
+          <p>Todo el cálculo ocurre en tu teléfono. No enviamos tu salario ni tus fechas a ningún servidor.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LA HERRAMIENTA ============ -->
+  <section class="calc" id="calculadora" aria-labelledby="calc-title">
+    <div class="wrap calc__grid">
+      <!-- Formulario -->
+      <form class="calc__form" id="form" novalidate aria-labelledby="calc-title">
+        <h2 id="calc-title" class="section__title">Calculadora de prestaciones</h2>
+        <p class="section__lead">Completa tus datos. Nada se guarda ni se envía; todo se calcula aquí mismo.</p>
+
+        <div class="field">
+          <label for="salario">Salario mensual (RD$)</label>
+          <input type="number" id="salario" name="salario" inputmode="decimal"
+                 min="0" step="0.01" placeholder="Ej. 35,000" autocomplete="off" required />
+          <p class="field__hint">Tu salario bruto ordinario de cada mes.</p>
+          <p class="field__error" id="err-salario" role="alert" hidden></p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="ingreso">Fecha de ingreso</label>
+            <input type="date" id="ingreso" name="ingreso" required />
+            <p class="field__error" id="err-ingreso" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="salida">Fecha de salida</label>
+            <input type="date" id="salida" name="salida" required />
+            <p class="field__error" id="err-salida" role="alert" hidden></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="motivo">Motivo de la terminación</label>
+          <select id="motivo" name="motivo" required>
+            <option value="" disabled selected>Elige el motivo…</option>
+            <option value="a">Desahucio del empleador — te despidieron sin causa</option>
+            <option value="b">Despido injustificado</option>
+            <option value="c">Dimisión justificada — renunciaste por falta del empleador</option>
+            <option value="d">Renuncia / desahucio del trabajador — renunciaste sin causa</option>
+            <option value="e">Despido justificado — con causa comprobada</option>
+          </select>
+          <p class="field__hint" id="motivo-hint">El motivo define qué conceptos te corresponden.</p>
+          <p class="field__error" id="err-motivo" role="alert" hidden></p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="vacaciones">Vacaciones no disfrutadas pendientes (días)</label>
+            <input type="number" id="vacaciones" name="vacaciones" inputmode="numeric"
+                   min="0" step="1" placeholder="0" autocomplete="off" />
+            <p class="field__hint">Opcional. Días de vacaciones que nunca tomaste.</p>
+          </div>
+          <div class="field">
+            <label for="regalia">¿Ya te pagaron la regalía de este año?</label>
+            <select id="regalia" name="regalia">
+              <option value="no" selected>No, todavía no</option>
+              <option value="si">Sí, ya me la pagaron</option>
+            </select>
+            <p class="field__hint">La regalía (salario de Navidad) es proporcional.</p>
+          </div>
+        </div>
+
+        <div class="calc__actions">
+          <button type="submit" class="btn btn--primary btn--block">Calcular mi liquidación</button>
+          <button type="reset" class="btn btn--ghost btn--sm" id="reset">Limpiar</button>
+        </div>
+        <p class="calc__formhint">Los cálculos son estimados. Ver notas y aviso legal debajo del resultado.</p>
+      </form>
+
+      <!-- Resultado (recibo) -->
+      <div class="calc__result" id="result" aria-live="polite">
+        <div class="result-empty" id="result-empty">
+          <div class="result-empty__icon" aria-hidden="true">🧾</div>
+          <h3>Tu recibo estimado aparecerá aquí</h3>
+          <p>Llena el formulario y presiona <strong>“Calcular mi liquidación”</strong> para ver el desglose concepto por concepto.</p>
+        </div>
+        <!-- app.js inyecta el recibo dentro de #receipt-slot -->
+        <div id="receipt-slot" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Cómo se calcula ============ -->
+  <section class="how" id="como" aria-labelledby="how-title">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--light">Transparencia total</p>
+      <h2 id="how-title" class="section__title section__title--light">Cómo se calcula cada concepto</h2>
+      <p class="section__lead section__lead--light">
+        Usamos las fórmulas del Código de Trabajo dominicano (Ley 16-92).
+        El salario diario base es <strong>salario mensual ÷ 23.83</strong>.
+      </p>
+      <div class="how__grid">
+        <article class="how__item">
+          <h3>Preaviso</h3>
+          <p>Aplica en desahucio del empleador y despido injustificado. 3 a 6 meses: 7 días · 6 a 12 meses: 14 días · más de 1 año: 28 días.</p>
+        </article>
+        <article class="how__item">
+          <h3>Auxilio de cesantía</h3>
+          <p>3 a 6 meses: 6 días · 6 a 12 meses: 13 días · desde 1 año: 21 días por año (años 1 al 5) y 23 días por año a partir del 6to. Las fracciones de año mayores de 3 meses se pagan como 6 días (3–6 meses) o 13 días (6–12 meses).</p>
+        </article>
+        <article class="how__item">
+          <h3>Vacaciones</h3>
+          <p>De 1 a 5 años: 14 días · más de 5 años: 18 días · menos de 1 año: proporcional. Se suman los días pendientes que indiques.</p>
+        </article>
+        <article class="how__item">
+          <h3>Regalía pascual</h3>
+          <p>Salario de Navidad proporcional a los meses trabajados en el año en curso, solo si aún no te la han pagado.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Monetización / Pro ============ -->
+  <section class="pro" id="pro" aria-labelledby="pro-title">
+    <div class="wrap pro__grid">
+      <!-- AD SLOT: aquí iría un banner AdMob en la versión de Google Play (app TWA). -->
+      <!-- <div class="ad-slot" data-ad-slot="banner-inferior"></div> -->
+      <div class="pro__copy">
+        <p class="eyebrow">Gratis para siempre</p>
+        <h2 id="pro-title" class="section__title">La calculadora es y seguirá siendo gratis</h2>
+        <p class="section__lead">
+          Puedes descargar o imprimir tu recibo en PDF sin costo. Si eres de RRHH o
+          calculas seguido, pronto habrá una versión Pro en la app.
+        </p>
+        <ul class="pro__list">
+          <li>Guarda el historial de tus cálculos</li>
+          <li>Exporta PDF sin marca de agua</li>
+          <li>Sin anuncios</li>
+        </ul>
+        <a class="btn btn--wa"
+           href="https://wa.me/18294418256?text=Hola%2C%20me%20interesa%20la%20versi%C3%B3n%20Pro%20de%20%C2%BFCu%C3%A1nto%20Me%20Toca%3F%20(historial%20y%20PDF%20sin%20marca).%20%C2%BFC%C3%B3mo%20la%20consigo%3F"
+           target="_blank" rel="noopener">Quiero la versión Pro</a>
+      </div>
+      <div class="pro__badge" aria-hidden="true">
+        <span class="pro__badge-tag">Próximamente</span>
+        <span class="pro__badge-title">Pro</span>
+        <span class="pro__badge-sub">Historial · PDF limpio · Sin anuncios</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap wrap--narrow">
+      <h2 id="faq-title" class="section__title">Preguntas frecuentes</h2>
+
+      <details class="qa">
+        <summary>¿Este cálculo tiene validez legal?</summary>
+        <p>No. Es un estimado orientativo basado en las fórmulas del Código de Trabajo (Ley 16-92). Las fracciones de año y los casos especiales los confirma el Ministerio de Trabajo o un abogado laboral.</p>
+      </details>
+
+      <details class="qa">
+        <summary>¿Por qué se divide entre 23.83?</summary>
+        <p>Porque el Código de Trabajo define el salario diario promedio dividiendo el salario mensual entre 23.83 días. Es el estándar que usa el Ministerio de Trabajo para liquidaciones.</p>
+      </details>
+
+      <details class="qa">
+        <summary>¿Qué pasa si renuncié yo mismo?</summary>
+        <p>Si renunciaste sin una causa imputable al empleador (renuncia simple), no te corresponde preaviso ni cesantía, pero sí tus vacaciones no disfrutadas y la regalía proporcional. Si dimitiste por una falta del empleador (dimisión justificada), la ley la equipara al despido injustificado: te corresponden preaviso y cesantía, además de vacaciones y regalía.</p>
+      </details>
+
+      <details class="qa">
+        <summary>¿Incluye la participación en los beneficios (bonificación)?</summary>
+        <p>No la calculamos porque depende de las utilidades de la empresa, un dato que solo la empresa conoce. Si la empresa tuvo beneficios, podrían corresponderte hasta 45 o 60 días; eso se consulta aparte.</p>
+      </details>
+
+      <details class="qa">
+        <summary>¿Guardan mi salario o mis fechas?</summary>
+        <p>No. Todo el cálculo ocurre en tu propio navegador. No enviamos nada a ningún servidor ni almacenamos tu información.</p>
+      </details>
+    </div>
+  </section>
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="foot">
+    <div class="wrap foot__grid">
+      <div>
+        <p class="foot__brand">¿Cuánto Me Toca?</p>
+        <p class="foot__tag">Prestaciones laborales de RD, calculadas claro y en tu propio dispositivo.</p>
+      </div>
+      <div class="foot__links">
+        <p class="foot__h">Fuente oficial</p>
+        <a href="https://mt.gob.do/" target="_blank" rel="noopener">Ministerio de Trabajo (mt.gob.do)</a>
+        <a href="#calculadora" data-scroll>Ir a la calculadora</a>
+      </div>
+    </div>
+    <p class="foot__legal">
+      No es asesoría legal. Cálculo estimado según el Código de Trabajo de la República Dominicana (Ley 16-92).
+      Las fracciones de año y los casos especiales los confirma el Ministerio de Trabajo o un abogado.
+      No guardamos tus datos: todo se calcula en tu navegador.
+    </p>
+  </footer>
+
+  <a class="wa-float"
+     href="https://wa.me/18294418256?text=Hola%2C%20tengo%20una%20duda%20con%20mi%20c%C3%A1lculo%20de%20prestaciones%20laborales."
+     target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">WhatsApp</a>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

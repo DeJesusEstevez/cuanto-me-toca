@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es-DO">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generar imágenes — ¿Cuánto Me Toca?</title>
+  <style>
+    :root {
+      --ink: #10233A; --money: #148F5B; --warm: #E88B33; --paper: #F4F6F5; --line: #DCE4E1;
+      --font: "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font); background: var(--paper); color: var(--ink); line-height: 1.55; }
+    .wrap { width: min(880px, 100% - 2rem); margin: 0 auto; padding: 2.5rem 0 4rem; }
+    h1 { font-size: 1.7rem; margin: 0 0 .4rem; }
+    p.lead { color: #4A5C72; margin: 0 0 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem; text-align: center; box-shadow: 0 10px 26px -16px rgba(16,35,58,.3); }
+    .card h2 { font-size: 1.05rem; margin: 0 0 .2rem; }
+    .card small { color: #4A5C72; display: block; margin-bottom: .9rem; }
+    canvas { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .btn {
+      display: inline-block; margin-top: 1rem; background: var(--money); color: #fff; text-decoration: none;
+      font-weight: 600; border: none; border-radius: 999px; padding: .7rem 1.2rem; cursor: pointer; font-size: .95rem;
+    }
+    .btn:hover { background: #0E6B44; }
+    .btn:focus-visible { outline: 3px solid var(--warm); outline-offset: 2px; }
+    .all { margin-top: 2rem; text-align: center; }
+    .steps { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem 1.4rem; margin-top: 2rem; }
+    .steps ol { margin: .5rem 0 0; padding-left: 1.2rem; }
+    .steps li { margin-bottom: .35rem; }
+    code { background: var(--paper); padding: .1rem .35rem; border-radius: 5px; font-size: .9em; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Generar imágenes de la app</h1>
+    <p class="lead">Esta página dibuja los íconos y la imagen social del brand con &lt;canvas&gt;. Presiona cada botón para descargar el PNG y guárdalo en la carpeta principal del proyecto (junto a <code>index.html</code>).</p>
+
+    <div class="grid">
+      <div class="card">
+        <h2>icon-192.png</h2>
+        <small>Ícono PWA · 192×192</small>
+        <canvas id="c192" width="192" height="192"></canvas>
+        <br /><button class="btn" data-target="c192" data-name="icon-192.png">Descargar</button>
+      </div>
+      <div class="card">
+        <h2>icon-512.png</h2>
+        <small>Ícono PWA / Play · 512×512</small>
+        <canvas id="c512" width="512" height="512"></canvas>
+        <br /><button class="btn" data-target="c512" data-name="icon-512.png">Descargar</button>
+      </div>
+      <div class="card">
+        <h2>og.png</h2>
+        <small>Preview social · 1200×630</small>
+        <canvas id="cog" width="1200" height="630"></canvas>
+        <br /><button class="btn" data-target="cog" data-name="og.png">Descargar</button>
+      </div>
+    </div>
+
+    <div class="all">
+      <button class="btn" id="download-all">Descargar las tres</button>
+    </div>
+
+    <div class="steps">
+      <strong>¿Qué hago con estos archivos?</strong>
+      <ol>
+        <li>Descarga <code>icon-192.png</code>, <code>icon-512.png</code> y <code>og.png</code>.</li>
+        <li>Colócalos en la carpeta principal del proyecto, junto a <code>index.html</code>.</li>
+        <li>Listo: el <code>manifest.webmanifest</code> y las etiquetas Open Graph ya los referencian.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+
+    /* Paleta del brand */
+    const INK = "#10233A", INK2 = "#0A1626", MONEY = "#148F5B", MONEY_DEEP = "#0E6B44",
+          WARM = "#E88B33", WHITE = "#ffffff", LINE = "#DCE4E1";
+
+    /** Dibuja el recibo con signo de peso (usado en ambos íconos). */
+    function dibujarIcono(ctx, size) {
+      // Fondo navy a sangre completa (buena máscara adaptable)
+      ctx.fillStyle = INK;
+      ctx.fillRect(0, 0, size, size);
+
+      // Halo verde
+      ctx.fillStyle = MONEY;
+      ctx.globalAlpha = 0.12;
+      ctx.beginPath();
+      ctx.arc(size * 0.5, size * 0.46, size * 0.37, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // Recibo blanco (zona segura ~62% del ancho, centrado)
+      const w = size * 0.40, x = (size - w) / 2;
+      const top = size * 0.26, bottom = size * 0.70;
+      const r = size * 0.02;
+      ctx.fillStyle = WHITE;
+      ctx.beginPath();
+      ctx.moveTo(x, top + r);
+      ctx.quadraticCurveTo(x, top, x + r, top);
+      ctx.lineTo(x + w - r, top);
+      ctx.quadraticCurveTo(x + w, top, x + w, top + r);
+      ctx.lineTo(x + w, bottom);
+      // borde inferior dentado
+      const dientes = 8, paso = w / dientes, prof = size * 0.024;
+      for (let i = 0; i < dientes; i++) {
+        const xx = x + w - i * paso;
+        ctx.lineTo(xx - paso / 2, bottom - prof);
+        ctx.lineTo(xx - paso, bottom);
+      }
+      ctx.lineTo(x, top + r);
+      ctx.closePath();
+      ctx.fill();
+
+      // Líneas punteadas
+      ctx.strokeStyle = LINE;
+      ctx.lineWidth = size * 0.018;
+      ctx.lineCap = "round";
+      ctx.setLineDash([1, size * 0.045]);
+      [0.38, 0.62].forEach((fy) => {
+        ctx.beginPath();
+        ctx.moveTo(x + w * 0.14, top + (bottom - top) * fy);
+        ctx.lineTo(x + w * 0.86, top + (bottom - top) * fy);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+
+      // Signo de peso verde
+      ctx.fillStyle = MONEY;
+      ctx.font = "800 " + Math.round(size * 0.30) + "px 'Sora','Segoe UI',sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("$", size * 0.5, size * 0.485);
+    }
+
+    /** Dibuja la imagen social og.png (1200×630). */
+    function dibujarOG(ctx) {
+      const W = 1200, H = 630;
+      // Fondo degradado navy
+      const g = ctx.createLinearGradient(0, 0, W, H);
+      g.addColorStop(0, INK); g.addColorStop(1, INK2);
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+      // Halos
+      ctx.globalAlpha = 0.10; ctx.fillStyle = MONEY;
+      ctx.beginPath(); ctx.arc(1010, 120, 360, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 0.08; ctx.fillStyle = WARM;
+      ctx.beginPath(); ctx.arc(120, 560, 260, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // Eyebrow
+      ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+      ctx.fillStyle = "#7fd8ab";
+      ctx.font = "700 26px 'Sora','Segoe UI',sans-serif";
+      ctx.fillText("CÓDIGO DE TRABAJO · LEY 16-92", 90, 150);
+
+      // Titular
+      ctx.fillStyle = WHITE;
+      ctx.font = "800 92px 'Sora','Segoe UI',sans-serif";
+      ctx.fillText("Al salir de tu trabajo,", 86, 268);
+      // "¿cuánto te toca?" con resalte verde
+      let x = 86; const y = 374;
+      ctx.fillText("¿", x, y); x += ctx.measureText("¿").width;
+      ctx.fillStyle = "#41c98a";
+      ctx.fillText("cuánto te toca", x, y); x += ctx.measureText("cuánto te toca").width;
+      ctx.fillStyle = WHITE;
+      ctx.fillText("?", x, y);
+
+      // Subtítulo
+      ctx.fillStyle = "#b7c4d3";
+      ctx.font = "600 34px 'Segoe UI',system-ui,sans-serif";
+      ctx.fillText("Preaviso · cesantía · vacaciones · regalía. Gratis y privado.", 90, 468);
+
+      // Marca
+      ctx.fillStyle = MONEY;
+      roundRect(ctx, 90, 520, 52, 52, 12); ctx.fill();
+      ctx.fillStyle = "#06301f";
+      ctx.font = "800 26px 'Sora','Segoe UI',sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("$", 116, 556);
+      ctx.textAlign = "left";
+      ctx.fillStyle = WHITE;
+      ctx.font = "800 34px 'Sora','Segoe UI',sans-serif";
+      ctx.fillText("¿Cuánto Me Toca?", 160, 556);
+
+      // Mini recibo a la derecha
+      dibujarMiniRecibo(ctx, 880, 200, 242, 264);
+    }
+
+    function dibujarMiniRecibo(ctx, x, y, w, h) {
+      ctx.fillStyle = WHITE;
+      const r = 12, bottom = y + h;
+      ctx.beginPath();
+      ctx.moveTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, bottom - 14);
+      const dientes = 6, paso = w / dientes;
+      for (let i = 0; i < dientes; i++) {
+        const xx = x + w - i * paso;
+        ctx.lineTo(xx - paso / 2, bottom);
+        ctx.lineTo(xx - paso, bottom - 14);
+      }
+      ctx.lineTo(x, y + r);
+      ctx.closePath(); ctx.fill();
+
+      ctx.strokeStyle = LINE; ctx.lineWidth = 8; ctx.lineCap = "round";
+      ctx.setLineDash([1, 20]);
+      [70, 120, 170].forEach((oy, i) => {
+        ctx.beginPath();
+        ctx.moveTo(x + 28, y + oy);
+        ctx.lineTo(x + w - (i === 2 ? 82 : 28), y + oy);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = MONEY;
+      ctx.font = "700 40px 'Space Mono','Courier New',monospace";
+      ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+      ctx.fillText("RD$", x + w / 2, y + h - 20);
+      ctx.textAlign = "left";
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    /* Render inicial */
+    dibujarIcono(document.getElementById("c192").getContext("2d"), 192);
+    dibujarIcono(document.getElementById("c512").getContext("2d"), 512);
+    dibujarOG(document.getElementById("cog").getContext("2d"));
+
+    /* Descargas */
+    function descargar(canvasId, nombre) {
+      const canvas = document.getElementById(canvasId);
+      const enlace = document.createElement("a");
+      enlace.download = nombre;
+      enlace.href = canvas.toDataURL("image/png");
+      enlace.click();
+    }
+    document.querySelectorAll(".btn[data-target]").forEach((b) => {
+      b.addEventListener("click", () => descargar(b.dataset.target, b.dataset.name));
+    });
+    document.getElementById("download-all").addEventListener("click", () => {
+      descargar("c192", "icon-192.png");
+      setTimeout(() => descargar("c512", "icon-512.png"), 350);
+      setTimeout(() => descargar("cog", "og.png"), 700);
+    });
+  </script>
+</body>
+</html>
